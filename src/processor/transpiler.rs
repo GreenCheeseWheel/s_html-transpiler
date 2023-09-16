@@ -57,7 +57,8 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
         if *byte == b'-'
         {
                 if index == 0
-                {
+                {   
+                    index = i;
                     break;
                 }
 
