@@ -43,13 +43,13 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
         {
             if index > 0 && !is_prop
             {
-                props.push(&line[index..i]);
-                index = i;
+                props.push(&line[index+1..i]);
+                index = i+1;
                 continue;
             }
             if !is_prop
             {
-                index = i;
+                index = i+1;
             }
             
         }
@@ -63,7 +63,8 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
 
                 if !is_prop
                 {
-                    props.push(&line[index..i]);
+                    props.push(&line[index+1..i]);
+                    index = i;
                     break;
                 }
 
@@ -74,9 +75,17 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
 
     }
 
-    println!("{:?}", props);
-    html_file.push_str(&format!("<{}>", tag as char));
-    html_file.push_str(&line[3..]);
+    html_file.push_str(&format!("<{} ", tag as char));
 
-    return format!("</{}>", tag as char);
+    for prop in props.iter()
+    {
+        let property = format!("{} ", *prop);
+        html_file.push_str(&property);
+    }
+
+    html_file.push_str(">");
+    html_file.push_str(&line[index+2..]);
+
+    println!("Las props: {:?}", props);
+    format!("</{}>", tag as char)
 }

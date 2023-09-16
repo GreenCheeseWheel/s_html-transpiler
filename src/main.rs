@@ -23,7 +23,7 @@ fn main() {
 
 
     let transpiled_file = transpile(file_reader.get_lines());
-
+    
     let file_writer = Writer {
         file_lines: transpiled_file,   
     };
