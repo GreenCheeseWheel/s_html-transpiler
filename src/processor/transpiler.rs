@@ -1,12 +1,10 @@
-use super::{ANCHOR, P};
-
 pub fn transpile(text:&str) -> String
 {
     let mut html_file = String::new();
     
     let lines:Vec<&str> = text.lines().collect();
 
-    let mut curr_end_tag=String::new();
+    let mut curr_end_tag:String;
 
     for line in lines
     {
@@ -38,9 +36,10 @@ fn append_tag(html_file: &mut String, tag: &String, line:&str) -> String
 {
     let mut props:Vec<&str> = vec![];
 
-    // We need to check if, after index 1, there are any properties for the tag
+    // We need to check if, after the tag, there are any properties
     let mut index:usize = 0;
     let mut is_prop = false;
+
     for (i, byte) in line[1..].as_bytes().iter().enumerate()
     {
         
@@ -102,7 +101,6 @@ fn append_tag(html_file: &mut String, tag: &String, line:&str) -> String
 
     html_file.push_str(">");
     html_file.push_str(&line[index+2..]);
-
-    println!("Las props: {:?}", props);
+    
     format!("</{}>", tag)
 }
