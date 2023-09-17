@@ -3,7 +3,7 @@ pub mod processor;
 use processor::{reader::Reader, transpiler::transpile, writer::Writer};
 
 /* 
-    Idea behind this cli is to write basic html using .txt files without knowing 
+    Idea behind this cli is to write basic html using .srth files without knowing 
     html much.
 */
 fn main() {

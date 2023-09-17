@@ -1,5 +1,0 @@
--p -Hola a todos
--p -Como están, yo estoy aburrido!
--a .href="https://www.youtube.com" .help="Salud" -Link a clase
--a .href="https://www.youtube.com/es" -
--b .inclemencia="esto_es_texto" - Esto está en negrita

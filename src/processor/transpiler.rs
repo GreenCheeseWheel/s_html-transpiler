@@ -10,7 +10,8 @@ pub fn transpile(text:&str) -> String
 
     for line in lines
     {
-        curr_end_tag = append_tag(&mut html_file, line.as_bytes()[1], line);
+        curr_end_tag = String::from(get_tag(&line[1..]));
+        curr_end_tag = append_tag(&mut html_file, &curr_end_tag, line);
         
         html_file.push_str(format!("{}\n", curr_end_tag).as_str() );
     }
@@ -18,7 +19,22 @@ pub fn transpile(text:&str) -> String
     html_file
 }
 
-fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
+fn get_tag(line:&str) -> &str
+{
+    let mut index:usize = 0;
+    for (i, byte) in line.as_bytes().iter().enumerate()
+    {
+        if *byte == b'.' || *byte == b'-'
+        {
+            index = i;
+            break;
+        }
+    }
+
+    return &line[0..index].trim();
+}
+
+fn append_tag(html_file: &mut String, tag: &String, line:&str) -> String
 {
     let mut props:Vec<&str> = vec![];
 
@@ -76,7 +92,7 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
 
     }
 
-    html_file.push_str(&format!("<{} ", tag as char));
+    html_file.push_str(&format!("<{} ", tag));
 
     for prop in props.iter()
     {
@@ -88,5 +104,5 @@ fn append_tag(html_file: &mut String, tag: u8, line:&str) -> String
     html_file.push_str(&line[index+2..]);
 
     println!("Las props: {:?}", props);
-    format!("</{}>", tag as char)
+    format!("</{}>", tag)
 }
