@@ -55,10 +55,10 @@ impl<T:fmt::Display + PartialEq + Clone> DOMTree<T> {
 
     fn append(tree: &mut DOMTree<T>, target:&T, appendage:&Vec<DOMTree<T>>) -> bool
     {
-        println!("{}", target);
         if *tree.value.as_ref().unwrap() == *target
         {
-            tree.children = appendage.clone();
+            let new_val = appendage.get(0).clone().unwrap().clone() ;
+            tree.children.push(new_val);
             return true;
         }
         false
