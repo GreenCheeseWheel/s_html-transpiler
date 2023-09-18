@@ -64,4 +64,10 @@ impl<T:fmt::Display + PartialEq + Clone> DOMTree<T> {
         false
     }
 
+    // This clones the value
+    pub fn get_root_val(&self) -> Option<T>
+    {
+        self.value.clone()
+    }
+
 }

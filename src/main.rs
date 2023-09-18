@@ -25,10 +25,25 @@ fn main() {
 
     let transpiled_file = transpile(file_reader.get_lines());
     
-    dbg!("DOMTree: \n {}", transpiled_file);
-    //let file_writer = Writer::new(transpiled_file, "<html>".to_string());
+
+    let output_file = match args.get(2) {
+        Some(path) => path.to_owned(),
+        None => {
+            let mut file_name = args.get(1).unwrap().clone();
+            let length = file_name.len();
+
+            file_name = file_name[..length-5].to_string().to_owned();
+            file_name.push_str(".html");
+            file_name
+        },
+    };
+
+    // This is just to have somewhat complete code, for now
+    let file_writer = Writer::new(transpiled_file.get_root_val().unwrap() );
     
-    
+    file_writer.write_to(&output_file)
+        .expect(format!("File of name {} could not be written", output_file).as_str());
+
 }
 
 

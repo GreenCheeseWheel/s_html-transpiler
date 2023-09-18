@@ -4,16 +4,14 @@ use super::dom_tree::DOMTree;
 pub struct Writer
 {
     pub file_lines:String,
-    dom_tree:DOMTree<String>
 }
 
 impl Writer
 {
-    pub fn new(lines:String, html_tag:String) -> Self
+    pub fn new(lines:String) -> Self
     {
         Writer { 
-            file_lines: lines,
-            dom_tree: DOMTree::new(html_tag), 
+            file_lines: lines, 
         }
     }
 
